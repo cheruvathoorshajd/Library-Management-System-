@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Della+Respira&family=Inter:wght@400;500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Login Page -->
+    <div class="login-container">
+        <h1>Welcome to Library System</h1>
+        <form id="login-form">
+            <label for="role">Select Role:</label>
+            <select id="role" name="role" required>
+                <option value="admin">Librarian/Admin</option>
+                <option value="member">Member</option>
+            </select>
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            <div id="login-error" class="error-message" style="display: none;"></div>
+
+            <button type="submit" class="btn">Login</button>
+        </form>
+    </div>
+
+    <!-- Embedded JavaScript -->
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const role = document.getElementById('role').value;
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            const validCredentials = {
+                admin: { username: 'Admin', password: '1234' },
+                member: { username: 'Member', password: '1234' }
+            };
+
+            if (validCredentials[role]?.username === username && validCredentials[role]?.password === password) {
+                // Store login status
+                localStorage.setItem('loggedIn', 'true');
+                localStorage.setItem('userRole', role);
+
+                // Redirect to index.html
+                window.location.href = 'index.html';
+            } else {
+                document.getElementById('login-error').textContent = 'Invalid credentials!';
+                document.getElementById('login-error').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+
+</html>
